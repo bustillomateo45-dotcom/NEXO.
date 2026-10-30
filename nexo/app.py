@@ -3444,31 +3444,24 @@ def _abrir_navegador():
 # INICIAR APLICACIÓN
 # =========================================================
 
+
 if __name__ == "__main__":
 
     if not _probar_conexion():
-
         input("\nPresiona ENTER para cerrar...")
-
         sys.exit(1)
 
-
     try:
-
         _inicializar_db()
 
     except Exception:
-
         print("")
         print(traceback.format_exc())
-
         input(
             "\nNo se pudo inicializar PostgreSQL. "
             "Presiona ENTER para cerrar..."
         )
-
         sys.exit(1)
-
 
     print("")
     print("========================================")
@@ -3478,24 +3471,19 @@ if __name__ == "__main__":
     print("Abriendo en: http://127.0.0.1:5000/")
     print("")
 
-
-    # Avisa si falta algún archivo necesario para que el chat funcione
     for _archivo in ("static/chat.js",):
         if not os.path.exists(os.path.join(BASE_DIR, _archivo)):
-            print("AVISO: falta el archivo", _archivo,
-                  "- el chat no funcionará sin él.")
+            print(
+                "AVISO: falta el archivo",
+                _archivo,
+                "- el chat no funcionará sin él."
+            )
 
-    # Abre el navegador 1 segundo después de arrancar Flask
     threading.Timer(1, _abrir_navegador).start()
 
-
     app.run(
-
         host="127.0.0.1",
-
         port=5000,
-
         debug=True,
-
         use_reloader=False
     )
